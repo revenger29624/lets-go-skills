@@ -8,7 +8,7 @@ OpenClaw 技能集合 - 让 AI 助手更强大的工具包
 
 | 技能名称 | 版本 | 描述 |
 |---------|------|------|
-| [travel-planner](./travel-planner) | v1.0.0 | 智能旅行攻略生成器 - 支持多格式输入，联网查询景点天气，输出完整 Markdown 攻略 |
+| [travel-planner](./travel-planner) | v1.1.0 | 智能旅行攻略生成器 - 支持国内外目的地，联网查询景点天气，输出完整 Markdown 攻略 |
 
 ---
 
@@ -36,7 +36,7 @@ openclaw gateway restart
 
 ```bash
 # Windows PowerShell
-Invoke-WebRequest -Uri "https://github.com/revenger29624/lets-go-skills/releases/download/v1.0.0/travel-planner.skill" -OutFile "$env:USERPROFILE\.qclaw\skills\travel-planner.skill"
+Invoke-WebRequest -Uri "https://github.com/revenger29624/lets-go-skills/releases/download/v1.1.0/travel-planner-v1.1.0.skill" -OutFile "$env:USERPROFILE\.qclaw\skills\travel-planner-v1.1.0.skill"
 
 # 解压后重启 OpenClaw
 ```
@@ -45,9 +45,17 @@ Invoke-WebRequest -Uri "https://github.com/revenger29624/lets-go-skills/releases
 
 ## 🧳 Travel Planner 使用示例
 
-### 文字输入
+### 国内目的地
 ```
 帮我做一个去成都5天4晚的旅行攻略，想看大熊猫和吃美食
+帮我规划去云南7天6晚的亲子游
+```
+
+### 国际目的地（v1.1.0 新增）
+```
+想去法国巴黎玩7天，怎么安排
+泰国曼谷清迈10天自由行攻略
+日本东京京都7天行程推荐
 ```
 
 ### 文件输入
@@ -60,8 +68,9 @@ Invoke-WebRequest -Uri "https://github.com/revenger29624/lets-go-skills/releases
 - 📍 每日详细行程
 - 🍜 美食推荐
 - 🚗 交通指南
-- 💰 费用预算
+- 💰 费用预算（支持多货币）
 - 📝 必备清单
+- 🌍 签证/时差/语言提示（国际目的地）
 
 ---
 
@@ -74,9 +83,12 @@ lets-go-skills/
 │   ├── scripts/
 │   │   └── parse_travel_input.py    # 输入文件解析器
 │   ├── references/
-│   │   └── destination_checklist.md # 目的地参考数据
+│   │   └── destination_checklist.md # 目的地参考数据（含国际）
 │   └── assets/                  # 模板资源（可选）
-├── travel-planner.skill         # 打包好的技能文件
+├── travel-planner-v1.1.0.skill  # 打包好的技能文件（最新版）
+├── travel-planner.skill         # v1.0.0 旧版本
+├── 成都_旅行攻略_*.md           # 示例攻略（国内）
+├── 法国·巴黎_旅行攻略_*.md      # 示例攻略（国际）
 └── README.md                    # 本文件
 ```
 
@@ -98,11 +110,28 @@ python scripts/package_skill.py my-skill
 
 ### 技能规范
 
-- **SKILL.md** 必须包含 YAML frontmatter（name + description）
+- **SKILL.md** 必须包含 YAML frontmatter（name + description + version）
 - **description** 要详细说明触发条件和功能
 - **scripts/** 存放可执行代码
 - **references/** 存放参考资料
 - **assets/** 存放模板资源
+
+---
+
+## 📋 版本历史
+
+### v1.1.0 (2026-04-19)
+- ✅ 新增国际目的地支持（法国、日本、泰国、意大利、新加坡等）
+- ✅ 修复 online-search 脚本 Windows PowerShell 兼容性问题
+- ✅ 优化天气查询编码处理
+- ✅ 增加多货币支持（€、¥、฿、$等）
+- ✅ 增加签证/时差/语言提示
+
+### v1.0.0 (2026-04-19)
+- ✅ 初始版本发布
+- ✅ 支持国内热门目的地
+- ✅ 多格式输入支持（txt/html/docx）
+- ✅ 联网搜索和天气查询
 
 ---
 
